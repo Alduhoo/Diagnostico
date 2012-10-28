@@ -1,0 +1,32 @@
+{% extends "includes/layout.html" %}
+
+{% block title %}
+	Preguntas
+{% endblock %}
+
+{% block content %}
+<table>
+<tr>
+	<th>Pregunta</th>
+	<th>Tema</th>
+	<th>Respuesta 1</th>
+	<th>Respuesta 2</th>
+	<th>Respuesta 3</th>
+	<th>Respuesta 4</th>
+	<th>Correcta</th>
+	<th>Editar</th>
+<tr>
+	{% for pregunta in preguntas %}
+		<tr>
+			<td>{{pregunta.pregunta}}</td>
+			<td>{{pregunta.tema.nombre}}</td>
+			<td>{{pregunta.respuesta1}}</td>
+			<td>{{pregunta.respuesta2}}</td>
+			<td>{{pregunta.respuesta3}}</td>
+			<td>{{pregunta.respuesta4}}</td>
+			<td>{{pregunta.correcta}}</td>
+			<td><a href="/preguntas/editar?key={{pregunta.key()}}">Editar</a></td>
+		<tr>
+	{% endfor %}
+</table>
+{% endblock %}

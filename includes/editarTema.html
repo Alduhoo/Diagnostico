@@ -1,0 +1,27 @@
+{% extends "includes/layout.html" %}
+
+{% block title %}
+	Editar Tema
+{% endblock %}
+
+{% block content %}
+	<form action="/temas/actualizar" method="POST">
+          <div class="form_settings">
+          	{% if tema != None %}
+          		<input type="hidden" name="key" value="{{tema.key()}}" />
+          	{% endif %}
+            <p>
+            	<span>Nombre: </span>
+            	<input class="contact" type="text" name="nombre" placeholder="Escribe un nombre" value="{% if tema != None %}{{tema.nombre}}{% endif %}" />
+            </p>
+			<p style="padding-top: 15px">
+				<span>Descripci&oacute;n: </span>
+				<textarea name="descripcion">{% if tema != None %}{{tema.descripcion}}{% endif %}</textarea>
+			</p>
+			<p style="padding-top: 15px">
+				<span>&nbsp;</span>
+				<input class="submit" type="submit" value="{% if tema != None %}Editar{% else %}Agregar{% endif %}" />
+			</p>
+          </div>
+        </form>
+{% endblock %}

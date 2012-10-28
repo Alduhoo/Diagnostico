@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<meta name="description" content="website description">
+		<meta name="keywords" content="website keywords, website keywords">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+		<!-- modernizr enables HTML5 elements and feature detects -->
+		<script type="text/javascript" src="/js/modernizr-1.5.min.js"></script>
+		<!-- javascript at the bottom for fast page loading -->
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/jquery.easing-sooper.js"></script>
+		<script type="text/javascript" src="/js/jquery.sooperfish.js"></script>
+		<script type="text/javascript" src="functions.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('ul.sf-menu').sooperfish();
+				$('.top').click(function() {$('html, body').animate({scrollTop:0}, 'fast'); return false;});
+			});
+		</script>
+	</head>
+	
+	<body>
+		<div id="main">
+			<header>
+				<div id="logo">
+					<div id="logo_text">
+						<!-- class="logo_colour", allows you to change the colour of the text -->
+						<h1><a href="home"><span class="logo_colour">Sistema de Evaluaci&oacute;n</span></a></h1>
+						<h2>Sistema de Evaluaci&oacute;n.</h2>
+					</div>
+				</div>
+				{% include "includes/nav.html" %}
+			</header>
+			
+			<div id="site_content">{% block content %}{% endblock %}</div>
+			
+			<div id="scroll"><a title="Scroll to the top" class="top" href="#"><img src="/images/top.png" alt="top"></a></div>
+			<footer>
+				{% block footer %}{% endblock %}
+			</footer>
+		</div>
+	</body>
+</html>

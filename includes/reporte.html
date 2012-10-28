@@ -1,0 +1,20 @@
+{% extends "includes/layout.html" %}
+
+{% block title %}
+	Reporte
+{% endblock %}
+
+{% block content %}
+<table>
+<tr>
+	<th>Nombre</th>
+	<th>M&iacute;nimo</th>
+	<th>Descripcion</th>
+</tr>
+<tr>
+	<td>{{ reporte.nombre }}</td>
+	<td>{{ reporte.minimo }}</td>
+	<td>{{ reporte.descripcion }}</td>
+</tr>
+</table>
+{% endblock %}

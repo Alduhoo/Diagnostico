@@ -1,0 +1,24 @@
+{% extends "includes/layout.html" %}
+
+{% block title %}
+	Examenes
+{% endblock %}
+
+{% block content %}
+<table>
+<tr>
+	<th>Usuario</th>
+	<th>Calificacion</th>
+	<th>Fecha</th>
+	<th>Reporte</th>
+<tr>
+	{% for examen in examenes %}
+		<tr>
+			<td>{{ examen.usuario }}</td>
+			<td>{{ examen.calificacion }}</td>
+			<td>{{ examen.fecha }}</td>
+			<td><a href="/reporte?key={{examen.reporte().key()}}">{{ examen.reporte().nombre }}<a/></td>
+		<tr>
+	{% endfor %}
+</table>
+{% endblock %}

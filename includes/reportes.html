@@ -1,0 +1,24 @@
+{% extends "includes/layout.html" %}
+
+{% block title %}
+	Reportes
+{% endblock %}
+
+{% block content %}
+<table>
+<tr>
+	<th>Nombre</th>
+	<th>Descripcion</th>
+	<th>M&iacute;nimo</th>
+	<th></th>
+<tr>
+	{% for reporte in reportes %}
+		<tr>
+			<td>{{ reporte.nombre }}</td>
+			<td>{{ reporte.descripcion }}</td>
+			<td>{{ reporte.minimo }}</td>
+			<td><a href="/reportes/editar?key={{reporte.key()}}">Editar</a></td>			
+		<tr>
+	{% endfor %}
+</table>
+{% endblock %}

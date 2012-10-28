@@ -1,0 +1,22 @@
+{% extends "includes/layout.html" %}
+
+{% block title %}
+	Temas
+{% endblock %}
+
+{% block content %}
+<table>
+<tr>
+	<th>Nombre</th>
+	<th>Descripcion</th>
+	<th>Editar</th>
+<tr>
+	{% for tema in temas %}
+		<tr>
+			<td>{{ tema.nombre }}</td>
+			<td>{{ tema.descripcion }}</td>
+			<td><a href="/temas/editar?key={{tema.key()}}">Editar</a></td>
+		<tr>
+	{% endfor %}
+</table>
+{% endblock %}

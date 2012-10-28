@@ -1,0 +1,31 @@
+{% extends "includes/layout.html" %}
+
+{% block title %}
+	Editar Reporte
+{% endblock %}
+
+{% block content %}
+	<form action="/reportes/actualizar" method="POST">
+          <div class="form_settings">
+          	{% if reporte != None %}
+          		<input type="hidden" name="key" value="{{reporte.key()}}" />
+          	{% endif %}
+            <p>
+            	<span>Nombre: </span>
+            	<input class="contact" type="text" name="nombre" placeholder="Escribe un nombre" value="{% if reporte != None %}{{reporte.nombre}}{% endif %}" />
+            </p>
+			<p style="padding-top: 15px">
+				<span>Descripci&oacute;n: </span>
+				<textarea name="descripcion">{% if reporte != None %}{{reporte.descripcion}}{% endif %}</textarea>
+			</p>
+			<p>
+				<span>Calificaci&oacute;n M&iacute;nima: </span>
+				<input class="contact" type="text" name="minimo" placeholder="" value="{% if reporte != None %}{{reporte.minimo}}{% endif %}" />
+			</p>
+			<p style="padding-top: 15px">
+				<span>&nbsp;</span>
+				<input class="submit" type="submit" value="{% if reporte != None %}Editar{% else %}Agregar{% endif %}" />
+			</p>
+          </div>
+        </form>
+{% endblock %}

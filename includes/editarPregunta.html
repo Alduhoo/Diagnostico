@@ -1,0 +1,57 @@
+{% extends "includes/layout.html" %}
+
+{% block title %}
+	Editar Pregunta
+{% endblock %}
+
+{% block content %}
+	<form action="/preguntas/actualizar" method="POST">
+          <div class="form_settings">
+          	{% if pregunta != None %}
+          		<input type="hidden" name="key" value="{{pregunta.key()}}" />
+          	{% endif %}
+            <p>
+            	<span>Pregunta: </span>
+            	<input class="contact" type="text" name="pregunta" placeholder="Escribe una pregunta" value="{% if pregunta != None %}{{pregunta.pregunta}}{% endif %}" />
+            </p>
+            <p>
+            	<span>Tema: </span>
+            	<select name="temaKey">
+            		{% for tema in temas %}
+            			<option value="{{tema.key()}}" {% if pregunta != None %}{% if pregunta.tema.key() == tema.key() %}selected="selected"{% endif %}{% endif %}>{{tema.nombre}}</option>
+            		{% endfor %}
+            	</select>
+            </p>
+            <p>
+            	<span>Respuesta 1: </span>
+            	<input class="contact" type="text" name="respuesta1" placeholder="Respuesta #1" value="{% if pregunta != None %}{{pregunta.respuesta1}}{% endif %}" />
+            </p>
+            <p>
+            	<span>Respuesta 2: </span>
+            	<input class="contact" type="text" name="respuesta2" placeholder="Respuesta #2" value="{% if pregunta != None %}{{pregunta.respuesta2}}{% endif %}" />
+            </p>
+            <p>
+            	<span>Respuesta 3: </span>
+            	<input class="contact" type="text" name="respuesta3" placeholder="Respuesta #3" value="{% if pregunta != None %}{{pregunta.respuesta3}}{% endif %}" />
+            </p>
+            <p>
+            	<span>Respuesta 4: </span>
+            	<input class="contact" type="text" name="respuesta4" placeholder="Respuesta #4" value="{% if pregunta != None %}{{pregunta.respuesta4}}{% endif %}" />
+            </p>
+            <p>
+            	<span>Respuesta Correcta: </span>
+            	<select name="correcta">
+            		<option value="0" {% if pregunta != None %}{% if pregunta.correcta == 0 %}selected="selected"{% endif %}{% endif %}></option>
+            		<option value="1" {% if pregunta != None %}{% if pregunta.correcta == 1 %}selected="selected"{% endif %}{% endif %}>1</option>
+            		<option value="2" {% if pregunta != None %}{% if pregunta.correcta == 2 %}selected="selected"{% endif %}{% endif %}>2</option>
+            		<option value="3" {% if pregunta != None %}{% if pregunta.correcta == 3 %}selected="selected"{% endif %}{% endif %}>3</option>
+            		<option value="4" {% if pregunta != None %}{% if pregunta.correcta == 4 %}selected="selected"{% endif %}{% endif %}>4</option>
+            	</select>
+            </p>
+			<p style="padding-top: 15px">
+				<span>&nbsp;</span>
+				<input class="submit" type="submit" value="{% if pregunta != None %}Editar{% else %}Agregar{% endif %}" />
+			</p>
+          </div>
+        </form>
+{% endblock %}
