@@ -3,6 +3,7 @@ import os
 import cgi
 import urllib
 import datetime
+import random
 
 import webapp2
 import webapp2_extras.appengine.users
@@ -177,7 +178,12 @@ class Examen(webapp2.RequestHandler):
 		# generar template
 		template = jinja_environment.get_template('includes/examen.html')
 		# obtener preguntas
-		preguntas = models.Pregunta.all()
+		preguntas_keys = models.Pregunta.all(keys_only = True)
+		llaves = []
+		for key in preguntas_keys:
+			llaves.append(key)
+		# preguntas = models.Pregunta.get(preguntas_keys)
+		preguntas = models.Pregunta.get(random.sample(llaves, 1))
 
 		# Poner modelo en template y generar template
 		valores = { 'preguntas' : preguntas }
