@@ -179,11 +179,13 @@ class Examen(webapp2.RequestHandler):
 		template = jinja_environment.get_template('includes/examen.html')
 		# obtener preguntas
 		preguntas_keys = models.Pregunta.all(keys_only = True)
+		total = preguntas_keys.count()
+		total = min(total, 10)
 		llaves = []
 		for key in preguntas_keys:
 			llaves.append(key)
 		# preguntas = models.Pregunta.get(preguntas_keys)
-		preguntas = models.Pregunta.get(random.sample(llaves, 1))
+		preguntas = models.Pregunta.get(random.sample(llaves, total))
 
 		# Poner modelo en template y generar template
 		valores = { 'preguntas' : preguntas }
