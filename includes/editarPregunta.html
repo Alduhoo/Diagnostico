@@ -40,8 +40,7 @@
             </p>
             <p>
             	<span>Respuesta Correcta: </span>
-            	<select name="correcta">
-            		<option value="0" {% if pregunta != None %}{% if pregunta.correcta == 0 %}selected="selected"{% endif %}{% endif %}></option>
+            	<select name="correcta">            		
             		<option value="1" {% if pregunta != None %}{% if pregunta.correcta == 1 %}selected="selected"{% endif %}{% endif %}>1</option>
             		<option value="2" {% if pregunta != None %}{% if pregunta.correcta == 2 %}selected="selected"{% endif %}{% endif %}>2</option>
             		<option value="3" {% if pregunta != None %}{% if pregunta.correcta == 3 %}selected="selected"{% endif %}{% endif %}>3</option>

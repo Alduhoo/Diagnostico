@@ -12,6 +12,8 @@ import models
 from google.appengine.api import users
 
 jinja_environment = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+jinja_environment.globals['user'] = users.get_current_user()
+jinja_environment.globals['users'] = users
 
 class Logout(webapp2.RequestHandler):
 	def get(self):
@@ -193,6 +195,8 @@ class Examen(webapp2.RequestHandler):
 	# Calificar examen
 	def post(self):
 		user = users.get_current_user()
+		examen = models.Examen()
+		examen.put()
 		correctas = 0
 		contestadas = 0
 
@@ -202,9 +206,15 @@ class Examen(webapp2.RequestHandler):
 			if opcion == pregunta.correcta:
 				correctas += 1
 			contestadas += 1
+			# Guardar respuesta elegida en datastore
+			respuestaExamen = models.RespuestaExamen()
+			respuestaExamen.examen = examen.key()
+			respuestaExamen.pregunta = pregunta.key()
+			respuestaExamen.respuesta = opcion
+			respuestaExamen.put()
+
 
 		calif = int(1.0 * correctas / contestadas * 100)
-		examen = models.Examen()
 		examen.calificacion = calif
 		examen.usuario = user.email()
 		examen.fecha = datetime.datetime.now()
@@ -307,6 +317,25 @@ class Resultados(webapp2.RequestHandler):
 		valores = { 'examenes' : examenes }
 		self.response.out.write(template.render(valores))
 
+class DetallesExamen(webapp2.RequestHandler):
+	@webapp2_extras.appengine.users.login_required
+	def get(self):
+		# obtener datos del query string
+		key = cgi.escape(self.request.get('key'))
+		# obtener examen
+		examen = models.Examen.get(key)
+		respuestas = examen.respuestas()
+		correctas = {}
+		contestadas = {}
+		# obtener correctas por tema
+		for respuesta in respuestas:
+			contestadas[respuesta.pregunta.tema.key()] = (contestadas[respuesta.pregunta.tema.key()] + 1) if respuesta.pregunta.tema.key() in contestadas else 1
+			if (respuesta.es_correcta()):
+				correctas[respuesta.pregunta.tema.key()] = (correctas[respuesta.pregunta.tema.key()] + 1) if respuesta.pregunta.tema.key() in correctas else 1
+		# Poner modelo en template y generar template
+		template = jinja_environment.get_template('includes/detallesExamen.html')
+		valores = { 'examen' : examen, 'respuestas' : respuestas, 'correctas' : correctas, 'contestadas' : contestadas, 'Tema' : models.Tema}
+		self.response.out.write(template.render(valores))
 
 app = webapp2.WSGIApplication([('/', MainHandler),
 							   ('/logout', Logout),
@@ -320,6 +349,7 @@ app = webapp2.WSGIApplication([('/', MainHandler),
 							   ('/preguntas/actualizar', ActualizarPregunta),
 							   ('/preguntas/editar', FormaPregunta),
 							   ('/examen', Examen),
+							   ('/examen/detalles', DetallesExamen),
 							   ('/examenes', Examenes),
 							   ('/reporte', Reporte),
 							   ('/reportes', Reportes),

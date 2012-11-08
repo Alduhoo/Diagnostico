@@ -4,13 +4,21 @@
 			<li class="selectable"><a href="/">Inicio</a></li>
 			<li class="selectable"><a href="/examen">Examen</a></li>
 			<li class="selectable"><a href="/resultados">Resultados</a></li>
-			<li><a href="#">Editar</a>
+			{% if users.is_current_user_admin() %}
+			<li><a href="#">Admin</a>
 				<ul>
+					<li><a href="/examenes">Examenes</a></li>
 					<li><a href="/temas">Temas</a></li>
 					<li><a href="/preguntas">Preguntas</a></li>
+					<li><a href="/reportes">Reportes</a></li>
 				</ul>
 			</li>
-			<li class="selectable"><a href="/login">Login</a></li>
+			{% endif %}
+			{% if users.get_current_user() == None %}
+				<li class="selectable"><a href="/login">Login</a></li>
+			{% else %}
+				<li class="selectable"><a href="/logout">Logout</a></li>
+			{% endif %}
 		</ul>
 	</div>
 </nav>

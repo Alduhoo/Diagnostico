@@ -20,7 +20,7 @@
 			</p>
 			<p>
 				<span>Calificaci&oacute;n M&iacute;nima: </span>
-				<input class="contact" type="text" name="minimo" placeholder="" value="{% if reporte != None %}{{reporte.minimo}}{% endif %}" />
+				<input class="contact" type="text" name="minimo" placeholder="" value="{% if reporte != None %}{{reporte.minimo}}{% else %}0{% endif %}" />
 			</p>
 			<p style="padding-top: 15px">
 				<span>&nbsp;</span>

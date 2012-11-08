@@ -15,7 +15,7 @@
 	{% for examen in examenes %}
 		<tr>
 			<td>{{ examen.usuario }}</td>
-			<td>{{ examen.calificacion }}</td>
+			<td><a href="/examen/detalles?key={{examen.key()}}">{{ examen.calificacion }}</a></td>
 			<td>{{ examen.fecha }}</td>
 			<td><a href="/reporte?key={{examen.reporte().key()}}">{{ examen.reporte().nombre }}<a/></td>
 		<tr>

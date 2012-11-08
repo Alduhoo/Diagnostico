@@ -1,0 +1,42 @@
+{% extends "includes/layout.html" %}
+
+{% block title %}
+	Detalle Examen
+{% endblock %}
+
+{% block content %}
+<table>
+<tr>
+	<th>Tema</th>
+	<th>Pregunta</th>
+	<th>Respuesta Correcta</th>
+	<th>Respuesta Seleccionada</th>
+</tr>
+{% for respuesta in respuestas %}
+{% set pregunta = respuesta.pregunta %}
+	<tr>
+		<td>{{ pregunta.tema.nombre }}</td>
+		<td>{{ pregunta.pregunta }}</td>
+		<td>{{ pregunta.texto_correcta() }}</td>
+		<td>{{ pregunta.texto_opcion(respuesta.respuesta) }}</td>
+	</tr>
+{% endfor %}
+</table>
+<table>
+	<tr>
+		<th>Tema</th>
+		<th>Correctas / Contestadas</th>
+		<th>Porcentaje</th>
+	</tr>
+	{% for tema in contestadas %}
+	{% set bien = correctas[tema] if tema in correctas else 0 %}
+	{% set total = contestadas[tema] %}
+	{% set porcentaje = 100.0 * bien / total %}
+	<tr>
+		<td>{{ Tema.get(tema).nombre }}</td>
+		<td>{{ bien }} / {{ total }}</td>
+		<td>{{ porcentaje }}%</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endblock %}
