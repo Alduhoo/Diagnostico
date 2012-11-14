@@ -45,7 +45,7 @@ class Temas(webapp2.RequestHandler):
 		# generar template
 		template = jinja_environment.get_template('includes/temas.html')
 		# obtener modelo
-		temas = models.Tema.all()
+		temas = models.Tema.all().order('nombre')
 		# Poner modelo en template y generar template
 		valores = { 'temas' : temas }
 		self.response.out.write(template.render(valores))
@@ -109,7 +109,7 @@ class Preguntas(webapp2.RequestHandler):
 		# generar template
 		template = jinja_environment.get_template('includes/preguntas.html')
 		# obtener modelo
-		preguntas = models.Pregunta.all()
+		preguntas = models.Pregunta.all().order('tema')
 		# Poner modelo en template y generar template
 		valores = { 'preguntas' : preguntas }
 		self.response.out.write(template.render(valores))
@@ -220,6 +220,7 @@ class Examen(webapp2.RequestHandler):
 		examen.fecha = datetime.datetime.now()
 		examen.put()
 		# TODO: redirect despues de contestar examen
+		self.redirect('/examen/detalles?key=' + str(examen.key()))
 
 class Examenes(webapp2.RequestHandler):
 	@webapp2_extras.appengine.users.admin_required
@@ -238,7 +239,7 @@ class Reportes(webapp2.RequestHandler):
 		# generar template
 		template = jinja_environment.get_template('includes/reportes.html')
 		# obtener modelo
-		reportes = models.Reporte.all()
+		reportes = models.Reporte.all().order('-minimo')
 		# Poner modelo en template y generar template
 		valores = { 'reportes' : reportes }
 		self.response.out.write(template.render(valores))

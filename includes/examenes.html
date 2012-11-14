@@ -16,7 +16,7 @@
 		<tr>
 			<td>{{ examen.usuario }}</td>
 			<td><a href="/examen/detalles?key={{examen.key()}}">{{ examen.calificacion }}</a></td>
-			<td>{{ examen.fecha }}</td>
+			<td>{{ examen.fecha.date() }}</td>
 			<td><a href="/reporte?key={{examen.reporte().key()}}">{{ examen.reporte().nombre }}<a/></td>
 		<tr>
 	{% endfor %}
